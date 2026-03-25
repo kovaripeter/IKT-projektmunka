@@ -35,6 +35,7 @@ def uj_termekfelvetel(self):
 
     except ValueError:
         print("Hiba: Az ár és a mennyiség csak szám lehet!")
+print("--- RAKTÁRKEZELŐ RENDSZER v1.0 ---\n[INFO] Adatok betöltése a 'raktar.txt' fájlból... OK.\n1. Készlet listázása\n2. Eladás (Készlet csökkentése)\n3. Új termék felvétele\n4. Termék keresése\n5. Mentés és Kilépés\n")
 bemenet = int(input("Válasszon műveletet (1-5): "))
 
 while bemenet != 5:
