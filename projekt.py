@@ -35,3 +35,16 @@ def uj_termekfelvetel(self):
 
     except ValueError:
         print("Hiba: Az ár és a mennyiség csak szám lehet!")
+bemenet = int(input("Válasszon műveletet (1-5): "))
+
+while bemenet != 5:
+    if bemenet == 1:
+        pass
+    elif bemenet == 2:
+        pass
+    elif bemenet == 3:
+        pass
+    elif bemenet == 4:
+        pass
+    bemenet = int(input("Válasszon műveletet (1-5): "))
+    
