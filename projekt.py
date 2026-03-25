@@ -8,8 +8,7 @@ class Termek:
 
 bemenet = int(input("Válasszon műveletet (1-5): "))
 
-fut = True
-while fut:
+while bemenet != 5:
     if bemenet == 1:
         pass
     elif bemenet == 2:
@@ -18,7 +17,5 @@ while fut:
         pass
     elif bemenet == 4:
         pass
-    elif bemenet == 5:
-        fut = False  
-    bemenet = input("Válasszon műveletet (1-5): ")
-
+    bemenet = int(input("Válasszon műveletet (1-5): "))
+    
