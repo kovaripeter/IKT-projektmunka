@@ -5,3 +5,20 @@ class Termek:
         self.keszletmennyiseg = keszletmennyiseg
     def adatok(self):
         print(f"A termék neve:{self.nev}, ára: {self.ar}, készleten:{self.keszletmennyiseg} db.")
+
+bemenet = int(input("Válasszon műveletet (1-5): "))
+
+fut = True
+while fut:
+    if bemenet == 1:
+        pass
+    elif bemenet == 2:
+        pass
+    elif bemenet == 3:
+        pass
+    elif bemenet == 4:
+        pass
+    elif bemenet == 5:
+        fut = False  
+    bemenet = input("Válasszon műveletet (1-5): ")
+
