@@ -1,3 +1,6 @@
+import os
+
+
 class Termek:
     def __init__(self,nev,ar,keszletmennyiseg):
         self.nev = nev
@@ -6,16 +9,43 @@ class Termek:
     def adatok(self):
         print(f"A termék neve:{self.nev}, ára: {self.ar}, készleten:{self.keszletmennyiseg} db.")
 
+    def betoltes(fajlnev):
+        termekek = []
+        if not os.path.exists(fajlnev):
+            return termekek
+
+        with open(fajlnev, "r", encoding="utf-8") as f:
+            for sor in f:
+                adatok = sor.strip().split(",")
+                if len(adatok) == 3:
+                    nev, ar, mennyiseg = adatok
+                    termekek.append(Termek(nev, int(ar), int(mennyiseg)))
+
+        return termekek
+
 termek1 = Termek("Tej", 300, 30)
 termek2 = Termek("Kenyér", 600,21)
 termek3 = Termek("Alma",60,80)
 keszlet = [termek1,termek2,termek3]
 
-def adatokmentese(self):
-        f = open("keszlet.txt", "w", encoding="utf-8")
-        for termek in self.termekek:
-            f.write(f"{termek['nev']},{termek['ar']},{termek['db']}\n")
-            f.close()
+def adatokmentese(fajlnev, termekek):
+    with open(fajlnev, "w", encoding="utf-8") as f:
+        for t in termekek:
+            f.write(str(t) + "\n")
+            
+def kereses(termekek):
+    print("\n--- KERESÉS ---")
+    kifejezes = input("Keresett kifejezés: ").lower()
+
+    talalat = False
+    for t in termekek:
+        if kifejezes in t.nev.lower():
+            print(f"[TALÁLAT] {t.nev} - Ár: {t.ar} Ft, Készlet: {t.mennyiseg} db")
+            talalat = True
+
+    if not talalat:
+        print("[INFO] Nincs találat.")
+    print()
 
 def uj_termekfelvetel(self):
     print("\n--- Új termék felvétele ---")
@@ -64,15 +94,27 @@ def eladas(termekek):
 
     print("[HIBA] Nincs ilyen termék!\n")
 
-bemenet = int(input("Válasszon műveletet (1-5): "))
+    while True:
+        print("1. Készlet listázása")
+        print("2. Új termék felvétele")
+        print("3. Eladás")
+        print("4. Keresés")
+        print("5. Mentés és Kilépés")
 
-while bemenet != 5:
-    if bemenet == 1:
-        pass
-    elif bemenet == 2:
-        pass
-    elif bemenet == 3:
-        pass
-    elif bemenet == 4:
-        pass
-    bemenet = int(input("Válasszon műveletet (1-5): "))
+        valasztas = input("Válasszon (1-5): ")
+
+        if valasztas == "1":
+            listazas(termekek)
+        elif valasztas == "2":
+            uj_termek(termekek)
+        elif valasztas == "3":
+            eladas(termekek)
+        elif valasztas == "4":
+            kereses(termekek)
+        elif valasztas == "5":
+            print("\n[INFO] Mentés...")
+            adatokmentese(fajlnev, termekek)
+            print("Viszontlátásra!")
+            break
+        else:
+            print("[HIBA] Hibás választás!\n")
