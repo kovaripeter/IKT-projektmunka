@@ -29,6 +29,26 @@ def kereses(termekek):
         if kereso in t.nev():
             print(f"[TALÁLAT] {t.nev} - Ár: {t.ar} Ft, Készlet: {t.mennyiseg} db")
             talalat = True
-            
+
+    bemenet = int(input("Válasszon műveletet (1-5): "))
+
+    fut = True
+    while fut:
+        if bemenet == 1:
+            listazas(termekek)
+        elif bemenet == 2:
+            uj_termek(termekek)
+        elif bemenet == 3:
+            eladas(termekek)
+        elif bemenet == 4:
+            kereses(termekek)
+        elif bemenet == 5:
+            fut = False  
+            print("[INFO] Adatok mentése a 'raktar.txt' fájlba... KÉSZ.Viszontlátásra!")
+            break
+        else:
+            print("[HIBA] Hibás választás!")
+
+
 
         
