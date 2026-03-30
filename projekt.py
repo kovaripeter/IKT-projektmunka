@@ -70,18 +70,27 @@ def main():
 
     mentes(termekek)
         
-    def betoltes(fajl):
-        betolt = termekek
-        if betolt == True:
-            f = open("raktar.txt", "w", encoding="utf-8")
-            for sor in f:
-                adatok = sor.strip().split(",")
-                if len(adatok) == 3:
-                    nev, ar, mennyiseg = adatok
-                    termekek.append(Termek(nev, int(ar), int(mennyiseg)))
-        else:
-            termekek = []
+def fajl_beolvasas():
+    termekek = []
 
+    try:
+        f = open("raktar.txt", "r")
+
+        for sor in f:
+            adatok = sor.strip().split(";")
+            nev = adatok[0]
+            ar = int(adatok[1])
+            mennyiseg = int(adatok[2])
+
+            t = Termek(nev, ar, mennyiseg)
+            termekek.append(t)
+
+        f.close()
+
+    except:
+        print("A fajl nem letezik, ures lista indul.")
+
+    return termekek
 
     def eladas(termekek):
         print("--- ELADÁS ---")
