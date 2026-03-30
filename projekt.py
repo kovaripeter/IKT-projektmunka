@@ -1,8 +1,74 @@
-class Termek():
-    def __init__(self, nev, ar, keszletmennyiseg):
+class Termek:
+    def __init__(self, nev, ar, mennyiseg):
         self.nev = nev
         self.ar = ar
-        self.keszletmennyiseg = keszletmennyiseg
+        self.mennyiseg = mennyiseg
+
+
+def fajl_beolvasas():
+    termekek = []
+    f = open("keszlet.txt", "r")
+
+    for sor in f:
+        adatok = sor.strip().split(";")
+        nev = adatok[0]
+        ar = int(adatok[1])
+        mennyiseg = int(adatok[2])
+
+        t = Termek(nev, ar, mennyiseg)
+        termekek.append(t)
+
+    return termekek
+
+
+def keszlet_kilistazasa(termekek):
+    print("Nev\nAr\nMennyiseg")
+
+    for t in termekek:
+        print(t.nev, t.ar, t.mennyiseg)
+
+
+def uj_termek(termekek):
+    nev = input("Add meg a termek nevet: ")
+    ar = int(input("Add meg az arat: "))
+    mennyiseg = int(input("Add meg a mennyiseget: "))
+
+    uj = Termek(nev, ar, mennyiseg)
+    termekek.append(uj)
+
+
+def mentes(termekek):
+    f = open("keszlet.txt", "w")
+
+    for t in termekek:
+        f.write(t.nev + ";" + str(t.ar) + ";" + str(t.mennyiseg) + "\n")
+
+    f.close()
+
+
+def menu():
+    print("1 - Keszlet kilistazasa")
+    print("2 - Uj termek")
+    print("3 - Kilepes")
+
+
+def main():
+    termekek = fajl_beolvasas()
+
+    valasztas = ""
+
+    while valasztas != "3":
+        menu()
+        valasztas = input("Valassz: ")
+
+        if valasztas == "1":
+            keszlet_kilistazasa(termekek)
+
+        if valasztas == "2":
+            uj_termek(termekek)
+            mentes(termekek)
+
+    mentes(termekek)
         
     def betoltes(fajl):
         betolt = termekek
