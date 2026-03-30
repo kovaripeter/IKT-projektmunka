@@ -1,11 +1,11 @@
 import os
 
-
 class Termek:
     def __init__(self,nev,ar,keszletmennyiseg):
         self.nev = nev
         self.ar= ar
         self.keszletmennyiseg = keszletmennyiseg
+
     def adatok(self):
         print(f"A termék neve:{self.nev}, ára: {self.ar}, készleten:{self.keszletmennyiseg} db.")
 
@@ -20,66 +20,66 @@ class Termek:
                 if len(adatok) == 3:
                     nev, ar, mennyiseg = adatok
                     termekek.append(Termek(nev, int(ar), int(mennyiseg)))
-
         return termekek
 
-termek1 = Termek("Tej", 300, 30)
-termek2 = Termek("Kenyér", 600,21)
-termek3 = Termek("Alma",60,80)
-keszlet = [termek1,termek2,termek3]
 
-def adatokmentese(fajlnev, termekek):
-    with open(fajlnev, "w", encoding="utf-8") as f:
+    def adatokmentese(fajlnev, termekek):
+        with open(fajlnev, "w", encoding="utf-8") as f:
+            for t in termekek:
+                f.write(str(t) + "\n")
+
+    def listazas(termekek):
+        print("\n--- AKTUÁLIS KÉSZLET ---")
+        print(f"{'Név':15} {'Ár (Ft)':10} {'Mennyiség'}")
+        print("-" * 40)
+
+    def kereses(termekek):
+        print("\n--- KERESÉS ---")
+        kifejezes = input("Keresett kifejezés: ").lower()
+
+        talalat = False
         for t in termekek:
-            f.write(str(t) + "\n")
-            
-def kereses(termekek):
-    print("\n--- KERESÉS ---")
-    kifejezes = input("Keresett kifejezés: ").lower()
+            if kifejezes in t.nev.lower():
+                print(f"[TALÁLAT] {t.nev} - Ár: {t.ar} Ft, Készlet: {t.mennyiseg} db")
+                talalat = True
 
-    talalat = False
-    for t in termekek:
-        if kifejezes in t.nev.lower():
-            print(f"[TALÁLAT] {t.nev} - Ár: {t.ar} Ft, Készlet: {t.mennyiseg} db")
-            talalat = True
+        if not talalat:
+            print("[INFO] Nincs találat.")
+        print()
 
-    if not talalat:
-        print("[INFO] Nincs találat.")
-    print()
-
-def uj_termekfelvetel(self):
-    print("\n--- Új termék felvétele ---")
-    nev = input("Termék neve: ")
-    try:
-        ar = int(input("Ár (Ft): "))
-        mennyiseg = int(input("Mennyiség (db): "))
-        uj_elem = {
-            "Termék": nev,
-            "Ár": ar,
-            "Mennyiség": mennyiseg
-        }
-        self.termekek.append(uj_elem)
-        print(f"Sikeresen hozzáadva: {nev}")
+    def uj_termekfelvetel(self):
+        print("\n--- Új termék felvétele ---")
+        nev = input("Termék neve: ")
+        try:
+            ar = int(input("Ár (Ft): "))
+            mennyiseg = int(input("Mennyiség (db): "))
+            uj_elem = {
+                "Termék": nev,
+                "Ár": ar,
+                "Mennyiség": mennyiseg
+            }
+            self.termekek.append(uj_elem)
+            print(f"Sikeresen hozzáadva: {nev}")
         
-        self.adatokmentese()
+            self.adatokmentese()
 
-    except ValueError:
-        print("Hiba: Az ár és a mennyiség csak szám lehet!")
+        except ValueError:
+            print("Hiba: Az ár és a mennyiség csak szám lehet!")
 
     print("--- RAKTÁRKEZELŐ RENDSZER v1.0 ---\n[INFO] Adatok betöltése a 'raktar.txt' fájlból... OK.\n1. Készlet listázása\n2. Eladás (Készlet csökkentése)\n3. Új termék felvétele\n4. Termék keresése\n5. Mentés és Kilépés\n")
 
-def eladas(termekek):
-    print("\n--- ELADÁS ---")
-    nev = input("Melyik terméket vásárolták meg? ")
-    for t in termekek():
-        if t.nev.lower() == nev.lower():
-            try:
-                db = int(input("Hány darabot? "))
-                if db <= 0:
-                    raise ValueError
-            except:
-                print("[HIBA] Hibás mennyiség!")
-                return
+    def eladas(termekek):
+        print("\n--- ELADÁS ---")
+        nev = input("Melyik terméket vásárolták meg? ")
+        for t in termekek():
+            if t.nev.lower() == nev.lower():
+                try:
+                    db = int(input("Hány darabot? "))
+                    if db <= 0:
+                        raise ValueError
+                except:
+                    print("[HIBA] Hibás mennyiség!")
+                    return
 
             if db > t.mennyiseg:
                 print("[HIBA] Nincs elég készlet!\n")
@@ -106,7 +106,7 @@ def eladas(termekek):
         if valasztas == "1":
             listazas(termekek)
         elif valasztas == "2":
-            uj_termek(termekek)
+            uj_termekfelvetel(termekek)
         elif valasztas == "3":
             eladas(termekek)
         elif valasztas == "4":
